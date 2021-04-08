@@ -90,7 +90,15 @@ export default class PartnerDetails extends Vue {
         this.type = "axios";
       })
       .catch((error: AxiosError) => {
-        this.error = "Fehler";
+        if (error.response?.status === 500) {
+          this.error = "Internal server error.";
+        } else if (error.response?.status === 400) {
+          this.error = "Service nichtt verfügbar.";
+        } else if (error.response?.status === 404) {
+          this.error = "Partner nicht gefunden.";
+        } else {
+          this.error = "Unbekannter Fehler.";
+        }
         console.log(error);
       })
       .finally(() => {
