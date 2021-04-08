@@ -28,8 +28,8 @@
 <script lang="ts">
 import i18n from "../i18n";
 import { Component, Prop, Vue } from "vue-property-decorator";
-import { Partner } from "../types/Partner";
 import examplePartner from "../sample/partner.json";
+import { Partner } from "@/types/Partner";
 
 const defaultPartner: Partner = {
   id: 123,
@@ -54,7 +54,7 @@ export default class PartnerDetails extends Vue {
   @Prop({ required: true })
   private msg!: string;
   private partner: Partner = defaultPartner;
-  private toggle!: boolean;
+  private toggle = false;
 
   /* get partnerInfo(): string {
     return this.toggle ? "external" : "default";
