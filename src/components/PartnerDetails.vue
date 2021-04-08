@@ -10,7 +10,8 @@
       <div>Email: {{ partner.email }}</div>
       <p>Addresse</p>
       <div>
-        Strasse: {{ partner.address.street }} {{ partner.address.houseNumber }}
+        Strasse: {{ partner.address.street }}
+        {{ partner.address.houseNumber }}
       </div>
       <div>
         Ort: {{ partner.address.postalCode }} {{ partner.address.city }}
@@ -28,7 +29,8 @@
         <input v-model="partnerId" />
         <button @click="loadPartnerAxios(partnerId)">Load axios Partner</button>
       </div>
-      <div v-if="error" class="error">{{ error }}</div>
+      <div v-if="loading" class="mt-1">Loading...</div>
+      <div v-if="error" class="error mt-1">{{ error }}</div>
     </div>
   </div>
 </template>
@@ -126,9 +128,11 @@ button {
   transition: background-color 0.25s linear;
   padding: 0 20px;
 }
+.mt-1 {
+  margin-top: 1rem;
+}
 .error {
   color: red;
-  margin-top: 1rem;
   font-style: bold;
 }
 </style>
