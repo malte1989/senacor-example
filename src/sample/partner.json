@@ -1,0 +1,14 @@
+{
+    "id": 999,
+    "email": "a.b@zurich.com",
+    "address": {
+        "street": "Strasse",
+        "houseNumber": 123,
+        "postalCode": 12354,
+        "city": "Test"
+    },
+    "bankAccount": {
+        "bankName": "Bank",
+        "iban": "FR999"
+    }
+}
