@@ -5,7 +5,7 @@
       {{ $t("title") }}
     </div>
     <div class="body">
-      <p>{{ toggle ? "external" : "default" }} Partner</p>
+      <p>{{ type }} Partner</p>
       <div>Id: {{ partner.id }}</div>
       <div>Email: {{ partner.email }}</div>
       <p>Addresse</p>
@@ -18,9 +18,17 @@
       <p>Bankinformationen</p>
       <div>Iban: {{ partner.bankAccount.bankName }}</div>
       <div>Bic: {{ partner.bankAccount.iban }}</div>
-      <button @click="loadPartner">
-        {{ toggle ? "Load default Partner" : "Load external Partner" }}
-      </button>
+      <div>
+        <button @click="loadPartnerDefault">Load default Partner</button>
+      </div>
+      <div>
+        <button @click="loadPartnerJson">Load Json Partner</button>
+      </div>
+      <div>
+        <input v-model="partnerId" />
+        <button @click="loadPartnerAxios(partnerId)">Load axios Partner</button>
+      </div>
+      <div v-if="error" class="error">{{ error }}</div>
     </div>
   </div>
 </template>
@@ -28,8 +36,9 @@
 <script lang="ts">
 import i18n from "../i18n";
 import { Component, Prop, Vue } from "vue-property-decorator";
-import examplePartner from "../sample/partner.json";
+import jsonPartner from "../sample/partner.json";
 import { Partner } from "@/types/Partner";
+import axios, { AxiosError, AxiosResponse } from "axios";
 
 const defaultPartner: Partner = {
   id: 123,
@@ -54,15 +63,37 @@ export default class PartnerDetails extends Vue {
   @Prop({ required: true })
   private msg!: string;
   private partner: Partner = defaultPartner;
-  private toggle = false;
+  private type = "default";
+  private loading = false;
+  private error = "";
+  private partnerId = "123";
 
-  /* get partnerInfo(): string {
-    return this.toggle ? "external" : "default";
-  } */
+  private loadPartnerJson() {
+    this.partner = jsonPartner;
+    this.type = "json";
+  }
 
-  private loadPartner() {
-    this.partner = this.toggle ? defaultPartner : examplePartner;
-    this.toggle = !this.toggle;
+  private loadPartnerDefault() {
+    this.partner = defaultPartner;
+    this.type = "default";
+  }
+
+  private loadPartnerAxios(partnerId: string) {
+    this.loading = true;
+    this.error = "";
+    axios
+      .get(`http://localhost:5002/partner/${partnerId}.json`)
+      .then((response: AxiosResponse) => {
+        this.partner = response.data;
+        this.type = "axios";
+      })
+      .catch((error: AxiosError) => {
+        this.error = "Fehler";
+        console.log(error);
+      })
+      .finally(() => {
+        this.loading = false;
+      });
   }
 }
 </script>
@@ -94,5 +125,10 @@ button {
   outline: none;
   transition: background-color 0.25s linear;
   padding: 0 20px;
+}
+.error {
+  color: red;
+  margin-top: 1rem;
+  font-style: bold;
 }
 </style>

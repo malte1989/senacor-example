@@ -1,0 +1,14 @@
+{
+  "id": 123,
+  "email": "axios@zurich.com",
+  "address": {
+    "street": "street",
+    "houseNumber": 1,
+    "postalCode": 2,
+    "city": "city"
+  },
+  "bankAccount": {
+    "bankName": "bankName",
+    "iban": "iban"
+  }
+}
