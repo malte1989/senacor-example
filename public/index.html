@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <!-- CONFIG JS -->
+    <script src="./config.js"></script>
+    <!-- Include CoreJS Polyfills for ECMAScript up to 2019 -->
+    <script src="https://unpkg.com/core-js-bundle"></script>
+
+    <!-- Include Regenerator Runtime if generator or async functions are used and need to be polyfilled -->
+    <!--<script src="https://unpkg.com/regenerator-runtime/runtime.js"></script>-->
+
+    <!-- Include WebComponent Polyfills -->
+    <script src="https://unpkg.com/@webcomponents/webcomponentsjs/webcomponents-loader.js"></script>
+
+    <!-- VueJS Library -->
+    <script src="https://unpkg.com/vue"></script>
+
+    <!-- VueI18n Library -->
+    <!--    <script src="https://unpkg.com/vue-i18n/dist/vue-i18n.js"></script>-->
+    <script src="https://unpkg.com/vue-i18n@8.0.0/dist/vue-i18n.js"></script>
+
+    <!-- Axios Http Client Library -->
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <!-- The Web Component -->
+    <%=process.env.NODE_ENV==='production' ? '<script src="./partner-details.js"></script>' : '' %>
+    <title>partner-frontend-example2</title>
+</head>
+
+<body>
+<noscript>
+    <strong>We're sorry but partner-frontend-example2 doesn't work properly without JavaScript enabled. Please enable it to
+        continue.</strong>
+</noscript>
+<partner-details msg="Hello World"></partner-details>
+</body>
+
+</html>
